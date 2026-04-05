@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StreamDPS Kontrol</title>
+  <link rel="stylesheet" href="/control.css" />
+</head>
+<body>
+  <main class="control-root">
+    <h1>StreamDPS Kontrol Paneli</h1>
+    <section class="card">
+      <label>TikTok kullanici adi</label>
+      <div class="row">
+        <input id="usernameInput" placeholder="ornek: kullaniciadi" />
+        <button id="connectBtn">Baglan</button>
+        <button id="disconnectBtn">Kes</button>
+      </div>
+      <div class="hint" id="connectionStatus">Bagli degil</div>
+    </section>
+
+    <section class="card">
+      <label>Tur suresi</label>
+      <div class="row">
+        <select id="durationSelect">
+          <option value="300">5 dakika</option>
+          <option value="600" selected>10 dakika</option>
+          <option value="900">15 dakika</option>
+          <option value="1200">20 dakika</option>
+        </select>
+        <button id="saveDurationBtn">Kaydet</button>
+        <button id="startRoundBtn">Yeni tur baslat</button>
+        <button id="stopRoundBtn">Durdur</button>
+      </div>
+      <div class="hint">Su an kalan sure: <strong id="timerState">--:--</strong></div>
+    </section>
+
+    <section class="card">
+      <label>Test puani</label>
+      <div class="row wrap">
+        <button class="team-btn" data-team="FB">+1 FB</button>
+        <button class="team-btn" data-team="GS">+1 GS</button>
+        <button class="team-btn" data-team="BJK">+1 BJK</button>
+        <button class="team-btn" data-team="TS">+1 TS</button>
+        <button id="resetBtn">Skoru sifirla</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <label>Linkler</label>
+      <div class="links">
+        <a href="/" target="_blank" rel="noreferrer">Overlay ac</a>
+      </div>
+      <div class="hint">Takim sarkilari icin dosyalari <code>public/audio/</code> klasorune koy: fb.mp3, gs.mp3, bjk.mp3, ts.mp3</div>
+    </section>
+  </main>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+    const usernameInput = document.getElementById('usernameInput');
+    const connectionStatus = document.getElementById('connectionStatus');
+    const durationSelect = document.getElementById('durationSelect');
+    const timerState = document.getElementById('timerState');
+
+    function fmt(total) {
+      total = Math.max(0, Number(total || 0));
+      const m = String(Math.floor(total / 60)).padStart(2, '0');
+      const s = String(total % 60).padStart(2, '0');
+      return `${m}:${s}`;
+    }
+
+    async function post(url, data = {}) {
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      const json = await res.json();
+      if (!res.ok || json.ok === false) throw new Error(json.error || 'Islem basarisiz');
+      return json;
+    }
+
+    socket.on('state', (state) => {
+      usernameInput.value = state.username || '';
+      durationSelect.value = String(state.roundDurationSeconds || 600);
+      timerState.textContent = fmt(state.timeLeftSeconds);
+      connectionStatus.textContent = state.isConnected ? `@${state.username} bagli` : 'Bagli degil';
+    });
+
+    document.getElementById('connectBtn').onclick = async () => {
+      try { await post('/api/connect', { username: usernameInput.value.trim() }); } catch (e) { alert(e.message); }
+    };
+    document.getElementById('disconnectBtn').onclick = async () => {
+      try { await post('/api/disconnect'); } catch (e) { alert(e.message); }
+    };
+    document.getElementById('saveDurationBtn').onclick = async () => {
+      try { await post('/api/round/duration', { seconds: Number(durationSelect.value) }); } catch (e) { alert(e.message); }
+    };
+    document.getElementById('startRoundBtn').onclick = async () => {
+      try { await post('/api/round/start', { seconds: Number(durationSelect.value) }); } catch (e) { alert(e.message); }
+    };
+    document.getElementById('stopRoundBtn').onclick = async () => {
+      try { await post('/api/round/stop'); } catch (e) { alert(e.message); }
+    };
+    document.getElementById('resetBtn').onclick = async () => {
+      try { await post('/api/reset'); } catch (e) { alert(e.message); }
+    };
+    document.querySelectorAll('.team-btn').forEach((btn) => {
+      btn.onclick = async () => {
+        try { await post('/api/test-score', { team: btn.dataset.team }); } catch (e) { alert(e.message); }
+      };
+    });
+  </script>
+</body>
+</html>
