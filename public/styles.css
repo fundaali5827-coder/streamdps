@@ -1,0 +1,163 @@
+:root {
+  --text: #f8fbff;
+  --muted: #bfcbe8;
+  font-family: Inter, Arial, sans-serif;
+}
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  min-height: 100%;
+  background: transparent;
+  color: var(--text);
+}
+body {
+  overflow: hidden;
+}
+.overlay-root {
+  width: 100vw;
+  min-height: 100vh;
+  padding: 28px 34px 34px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 26px;
+}
+.timer-shell {
+  display: flex;
+  justify-content: center;
+}
+.timer-pill {
+  min-width: 260px;
+  padding: 16px 28px;
+  border-radius: 999px;
+  border: 2px solid rgba(255,183,64,.92);
+  background: rgba(12,15,24,.72);
+  box-shadow: 0 0 32px rgba(255,153,0,.18);
+  display: inline-flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  font-weight: 900;
+  letter-spacing: .03em;
+}
+.timer-icon { font-size: 34px; }
+.teams-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+.team-card {
+  position: relative;
+  min-height: 380px;
+  border-radius: 28px;
+  padding: 18px;
+  overflow: hidden;
+  background: rgba(13,18,30,.78);
+  border: 1px solid rgba(255,255,255,.12);
+  box-shadow: 0 20px 70px rgba(0,0,0,.35);
+}
+.team-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--grad);
+  opacity: .16;
+}
+.team-card.active {
+  box-shadow: 0 0 0 1px rgba(255,255,255,.2), 0 0 40px rgba(255,255,255,.16), 0 24px 70px rgba(0,0,0,.4);
+}
+.team-top {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logo-wrap {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.95);
+  display: grid;
+  place-items: center;
+  box-shadow: 0 10px 28px rgba(0,0,0,.25);
+}
+.logo-wrap img {
+  width: 68px;
+  height: 68px;
+  object-fit: contain;
+}
+.team-short {
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.12);
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: .08em;
+}
+.team-name {
+  position: relative;
+  margin-top: 22px;
+  font-size: 30px;
+  font-weight: 800;
+}
+.score-row {
+  position: relative;
+  margin-top: 34px;
+}
+.score-number {
+  font-size: clamp(90px, 9vw, 120px);
+  line-height: .88;
+  font-weight: 1000;
+  letter-spacing: -.05em;
+  text-shadow: 0 0 24px rgba(255,255,255,.12);
+}
+.score-number.bump { animation: bump .55s ease; }
+.puan-label {
+  position: relative;
+  margin-top: 16px;
+  color: var(--muted);
+  font-size: 20px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.winner-overlay {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: end center;
+  padding-bottom: 60px;
+  pointer-events: none;
+}
+.winner-overlay.hidden { display: none; }
+.winner-burst {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(255,170,0,.22) 0%, rgba(255,170,0,.12) 20%, rgba(0,0,0,0) 60%);
+  animation: flash .9s ease forwards;
+}
+.winner-text {
+  position: relative;
+  font-size: clamp(52px, 8vw, 92px);
+  font-weight: 1000;
+  color: #ffc85b;
+  text-shadow: 0 0 18px rgba(255,174,0,.45), 0 0 36px rgba(255,174,0,.18);
+  animation: winnerPop .9s ease;
+}
+@keyframes bump { 0%{transform:scale(1)} 30%{transform:scale(1.18)} 100%{transform:scale(1)} }
+@keyframes flash { 0%{opacity:0} 15%{opacity:1} 100%{opacity:0} }
+@keyframes winnerPop { 0%{opacity:0; transform:scale(.8)} 30%{opacity:1; transform:scale(1.08)} 100%{opacity:1; transform:scale(1)} }
+@media (max-width: 1280px) {
+  .teams-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 720px) {
+  .overlay-root { padding: 16px; gap: 14px; }
+  .teams-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .team-card { min-height: 250px; }
+  .team-name { font-size: 20px; margin-top: 14px; }
+  .score-number { font-size: 64px; }
+  .timer-pill { min-width: 180px; font-size: 28px; padding: 12px 18px; }
+  .timer-icon { font-size: 24px; }
+}
