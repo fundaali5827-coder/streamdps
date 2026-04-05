@@ -3,18 +3,100 @@
 <head>
 <meta charset="UTF-8">
 <title>Overlay</title>
+
 <style>
 body {
   margin:0;
   background: transparent;
-  color:white;
   font-family: Arial;
+  color:white;
+  overflow:hidden;
+}
+
+.container {
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  margin-top:120px;
+}
+
+.card {
+  width:220px;
+  height:300px;
+  border-radius:20px;
+  padding:20px;
+  text-align:center;
+  backdrop-filter: blur(10px);
+  background: rgba(0,0,0,0.4);
+  border:2px solid rgba(255,255,255,0.2);
+}
+
+.score {
+  font-size:60px;
+  margin-top:40px;
+  font-weight:bold;
+}
+
+.timer {
+  position:absolute;
+  top:40px;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:40px;
+  background:rgba(0,0,0,0.6);
+  padding:10px 30px;
+  border-radius:20px;
+}
+.winner {
+  position:absolute;
+  bottom:100px;
+  width:100%;
+  text-align:center;
+  font-size:60px;
+  color:gold;
+  display:none;
 }
 </style>
 </head>
+
 <body>
 
-<h1 style="text-align:center;">Overlay çalışıyor</h1>
+<div class="timer" id="timer">10:00</div>
+
+<div class="container">
+  <div class="card"><h2>FB</h2><div class="score" id="fb">0</div></div>
+  <div class="card"><h2>GS</h2><div class="score" id="gs">0</div></div>
+  <div class="card"><h2>BJK</h2><div class="score" id="bjk">0</div></div>
+  <div class="card"><h2>TS</h2><div class="score" id="ts">0</div></div>
+</div>
+
+<div class="winner" id="winner">FB KAZANDI!</div>
+
+<script>
+let time = 600;
+
+setInterval(()=>{
+  time--;
+  let m = Math.floor(time/60);
+  let s = time%60;
+  document.getElementById("timer").innerText =
+    (m<10?"0":"")+m + ":" + (s<10?"0":"")+s;
+
+  if(time<=0){
+    let scores = {
+      FB: parseInt(document.getElementById("fb").innerText),
+      GS: parseInt(document.getElementById("gs").innerText),
+      BJK: parseInt(document.getElementById("bjk").innerText),
+      TS: parseInt(document.getElementById("ts").innerText),
+    };
+
+    let winner = Object.keys(scores).reduce((a,b)=>scores[a]>scores[b]?a:b);
+    document.getElementById("winner").innerText = winner + " KAZANDI!";
+    document.getElementById("winner").style.display="block";
+  }
+
+},1000);
+</script>
 
 </body>
 </html>
