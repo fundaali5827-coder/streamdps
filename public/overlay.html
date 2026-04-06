@@ -2,206 +2,47 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Overlay Ultra</title>
+<title>Overlay</title>
 <style>
-html,body{
-  margin:0;
-  width:100%;
-  height:100%;
-  background:transparent !important;
-  overflow:hidden;
-  font-family:Arial,Helvetica,sans-serif;
-}
-body{
-  background:
-    radial-gradient(circle at center bottom, rgba(255,168,38,.14), transparent 24%),
-    radial-gradient(circle at center, rgba(255,209,102,.06), transparent 40%),
-    transparent !important;
-}
-.timer{
-  position:absolute;
-  top:34px;
-  left:50%;
-  transform:translateX(-50%);
-  min-width:240px;
-  text-align:center;
-  padding:14px 30px;
-  border-radius:24px;
-  background:rgba(35,35,45,.92);
-  border:1px solid rgba(255,222,133,.3);
-  color:#fff4cf;
-  font-size:30px;
-  font-weight:900;
-  box-shadow:
-    0 0 18px rgba(255,200,70,.78),
-    inset 0 0 18px rgba(255,255,255,.05);
-}
-.wrap{
-  position:absolute;
-  top:132px;
-  left:50%;
-  transform:translateX(-50%);
-  display:flex;
-  gap:26px;
-}
-.card{
-  width:270px;
-  height:410px;
-  border-radius:28px;
-  position:relative;
-  overflow:hidden;
-  box-shadow:
-    0 0 30px rgba(0,0,0,.45),
-    inset 0 0 20px rgba(255,255,255,.05);
-  border:1px solid rgba(255,255,255,.12);
-}
-.card::before{
-  content:"";
-  position:absolute;
-  top:0; left:0; right:0;
-  height:6px;
-  background:linear-gradient(90deg, transparent, rgba(255,255,255,.95), transparent);
-}
-.card::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:
-    radial-gradient(circle at 22% 16%, rgba(255,255,255,.22), transparent 18%),
-    radial-gradient(circle at 78% 22%, rgba(255,255,255,.08), transparent 20%),
-    radial-gradient(circle at 50% 82%, rgba(255,176,53,.14), transparent 20%);
-  pointer-events:none;
-}
-.fb{
-  background:
-    radial-gradient(circle at 30% 16%, rgba(110,170,255,.25), transparent 18%),
-    linear-gradient(180deg,#1a4fd4 0%, #10317d 45%, #0b1737 100%);
-  box-shadow:0 0 22px rgba(70,135,255,.68), 0 0 40px rgba(70,135,255,.24), inset 0 0 16px rgba(255,255,255,.04);
-}
-.gs{
-  background:
-    radial-gradient(circle at 28% 16%, rgba(255,162,97,.26), transparent 18%),
-    linear-gradient(180deg,#ef4b2c 0%, #b62413 46%, #53120d 100%);
-  box-shadow:0 0 22px rgba(255,107,69,.75), 0 0 40px rgba(255,107,69,.24), inset 0 0 16px rgba(255,255,255,.04);
-}
-.bjk{
-  background:
-    radial-gradient(circle at 28% 16%, rgba(255,255,255,.16), transparent 16%),
-    linear-gradient(180deg,#4b4f57 0%, #23262b 46%, #111317 100%);
-  box-shadow:0 0 22px rgba(255,216,107,.42), 0 0 40px rgba(255,216,107,.14), inset 0 0 16px rgba(255,255,255,.04);
-}
-.ts{
-  background:
-    radial-gradient(circle at 28% 16%, rgba(255,162,205,.18), transparent 16%),
-    linear-gradient(180deg,#d14c84 0%, #a2325d 46%, #54182f 100%);
-  box-shadow:0 0 22px rgba(255,102,164,.55), 0 0 40px rgba(255,102,164,.18), inset 0 0 16px rgba(255,255,255,.04);
-}
-.logo{
-  position:absolute;
-  top:22px;
-  left:50%;
-  transform:translateX(-50%);
-  width:104px;
-  height:104px;
-  object-fit:contain;
-  filter:drop-shadow(0 0 10px rgba(255,255,255,.28));
-}
-.team{
-  position:absolute;
-  top:142px;
-  left:0; right:0;
-  text-align:center;
-  color:#fff5dd;
-  font-size:28px;
-  font-weight:900;
-  letter-spacing:1px;
-}
-.score{
-  position:absolute;
-  top:58%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  font-size:118px;
-  line-height:1;
-  font-weight:900;
-  color:#ffd54f;
-  text-shadow:
-    0 0 10px rgba(255,214,84,1),
-    0 0 24px rgba(255,179,0,.95),
-    0 0 56px rgba(255,145,0,.7);
-}
-.label{
-  position:absolute;
-  top:76%;
-  left:50%;
-  transform:translateX(-50%);
-  color:#fff3c8;
-  font-size:20px;
-  font-weight:900;
-  letter-spacing:4px;
-}
-.winner{
-  position:absolute;
-  left:50%;
-  bottom:34px;
-  transform:translateX(-50%);
-  text-align:center;
-  color:#ffd54f;
-  font-size:58px;
-  font-weight:900;
-  text-shadow:
-    0 0 10px rgba(255,214,84,1),
-    0 0 26px rgba(255,179,0,.9),
-    0 0 60px rgba(255,145,0,.55);
-  opacity:0;
-  transition:opacity .3s ease;
-}
-.winner.show{opacity:1}
+html,body{margin:0;background:transparent;font-family:Arial}
+.timer{position:absolute;top:30px;left:50%;transform:translateX(-50%);background:#222;padding:10px 25px;border-radius:20px;color:#ffd700;font-size:28px}
+.wrap{display:flex;gap:30px;justify-content:center;margin-top:120px}
+.card{width:220px;height:320px;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;box-shadow:0 0 20px rgba(0,0,0,.5)}
+.score{font-size:70px;color:#ffd700}
 </style>
 </head>
 <body>
-  <div class="timer" id="timer">10:00</div>
-  <div class="wrap">
-    <div class="card fb">
-      <img class="logo" src="logos/fb.png" alt="FB">
-      <div class="team">FB</div>
-      <div class="score" id="fb">0</div>
-      <div class="label">PUAN</div>
-    </div>
-    <div class="card gs">
-      <img class="logo" src="logos/gs.png" alt="GS">
-      <div class="team">GS</div>
-      <div class="score" id="gs">0</div>
-      <div class="label">PUAN</div>
-    </div>
-    <div class="card bjk">
-      <img class="logo" src="logos/bjk.png" alt="BJK">
-      <div class="team">BJK</div>
-      <div class="score" id="bjk">0</div>
-      <div class="label">PUAN</div>
-    </div>
-    <div class="card ts">
-      <img class="logo" src="logos/ts.png" alt="TS">
-      <div class="team">TS</div>
-      <div class="score" id="ts">0</div>
-      <div class="label">PUAN</div>
-    </div>
-  </div>
-  <div class="winner" id="winner">FB KAZANDI!</div>
+
+<div class="timer" id="timer">00:00</div>
+
+<div class="wrap">
+<div class="card"><div>FB</div><div id="fb" class="score">0</div></div>
+<div class="card"><div>GS</div><div id="gs" class="score">0</div></div>
+<div class="card"><div>BJK</div><div id="bjk" class="score">0</div></div>
+<div class="card"><div>TS</div><div id="ts" class="score">0</div></div>
+</div>
+
 <script>
-let t = 600;
-let shown = false;
-setInterval(() => {
-  const m = Math.floor(t/60), s = t%60;
-  document.getElementById('timer').textContent =
-    String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
-  if (t > 0) t--;
-  else if (!shown) {
-    shown = true;
-    document.getElementById('winner').classList.add('show');
-  }
-}, 1000);
+async function load(){
+  try{
+    let r = await fetch('/api/state');
+    let d = await r.json();
+
+    let m = Math.floor(d.timeLeft/60);
+    let s = d.timeLeft%60;
+    document.getElementById("timer").innerText =
+      String(m).padStart(2,'0')+":"+String(s).padStart(2,'0');
+
+    document.getElementById("fb").innerText = d.scores.FB;
+    document.getElementById("gs").innerText = d.scores.GS;
+    document.getElementById("bjk").innerText = d.scores.BJK;
+    document.getElementById("ts").innerText = d.scores.TS;
+
+  }catch(e){}
+}
+setInterval(load,1000);
+load();
 </script>
+
 </body>
 </html>
