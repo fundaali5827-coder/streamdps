@@ -1,0 +1,33 @@
+{
+  "username": "",
+  "timerDuration": 600,
+  "timeLeft": 600,
+  "timerRunning": false,
+  "roundEndedAt": null,
+  "showWinner": false,
+  "winner": "",
+  "scores": {
+    "FB": 0,
+    "GS": 0,
+    "BJK": 0,
+    "TS": 0
+  },
+  "logos": {
+    "FB": "",
+    "GS": "",
+    "BJK": "",
+    "TS": ""
+  },
+  "gifts": {
+    "rose": "FB",
+    "tiktok": "GS",
+    "gg": "BJK",
+    "ice cream cone": "TS",
+    "dondurma kulahi": "TS"
+  },
+  "audio": {
+    "enabled": true
+  },
+  "leader": "",
+  "giftFeed": []
+}
