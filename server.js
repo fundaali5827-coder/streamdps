@@ -230,10 +230,15 @@ tiktokConnection.on('gift', (data) => {
   const name = String(data.giftName || '').toLowerCase().trim();
   const mapped = state.gifts[name];
 
-  if (mapped) {
-    state.scores[mapped] += 1;
-    emitState();
+  if (!mapped) return;
+
+  // SADECE STREAK BİTİNCE SAY
+  if (data.giftType === 1) {
+    if (!data.repeatEnd) return;
   }
+
+  state.scores[mapped] += 1;
+  emitState();
 });
     await tiktokConnection.connect();
     state.username = username;
