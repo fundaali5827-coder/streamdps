@@ -1,28 +1,20 @@
-# StreamDPS Complete
+KURULUM
 
-Kurulum:
-1. `npm install`
-2. `npm start`
+1) Bu zip'i ac.
+2) GitHub repo'ndaki dosyalarin yerine bunlari yukle.
+3) Render otomatik deploy eder.
+4) Overlay: /overlay.html
+5) Panel: /control.html
 
-Sayfalar:
-- overlay: `http://localhost:3000/overlay.html`
-- panel: `http://localhost:3000/control.html`
+OBS icin Browser Source CSS:
+html, body { background: rgba(0,0,0,0) !important; margin:0; padding:0; }
 
-Ozellikler:
-- TikTok kullanici adina baglanma
-- Hediye -> puan
-- 10 dakika veya degistirilebilir geri sayim
-- Sure bitince en yuksek puanli takim kazanir
-- 3 saniye sonra yeni tur icin puanlar sifirlanir
-- Lider takim sarkisi kaldigi yerden devam eder
-- Logolar panelden URL ile degisir
-
-Ses dosyalari:
-`public/audio/` icine su dosyalari ekle:
-- fb.mp3
-- gs.mp3
-- bjk.mp3
-- ts.mp3
+Muzikler:
+public/audio/ icine
+fb.mp3
+gs.mp3
+bjk.mp3
+ts.mp3
 
 Not:
-Tarayicida sesin baslamasi icin overlay sayfasina bir kez tiklamak gerekebilir.
+TikTok baglanti icin yayin acik olmali.

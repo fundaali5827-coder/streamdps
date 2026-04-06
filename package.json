@@ -1,5 +1,5 @@
 {
-  "name": "streamdps-complete",
+  "name": "streamdps-ultimate-final",
   "version": "1.0.0",
   "private": true,
   "main": "server.js",
@@ -8,7 +8,6 @@
   },
   "dependencies": {
     "express": "^4.21.2",
-    "socket.io": "^4.8.1",
     "tiktok-live-connector": "^1.2.2"
   }
 }

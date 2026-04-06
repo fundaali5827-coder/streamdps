@@ -1,18 +1,222 @@
 <!DOCTYPE html>
-<html>
-<body style="margin:0;background:transparent;color:white;text-align:center;font-size:40px">
-FB <span id="fb">0</span> |
-GS <span id="gs">0</span> |
-BJK <span id="bjk">0</span> |
-TS <span id="ts">0</span>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Overlay</title>
+<style>
+html,body{
+  margin:0;padding:0;width:100%;height:100%;
+  background:transparent !important;
+  overflow:hidden;
+  font-family:Arial,Helvetica,sans-serif;
+}
+body{
+  background:
+    radial-gradient(circle at center bottom, rgba(255,174,45,.15), transparent 24%),
+    radial-gradient(circle at center, rgba(255,208,100,.05), transparent 42%),
+    transparent !important;
+}
+.timer{
+  position:absolute;top:34px;left:50%;transform:translateX(-50%);
+  min-width:270px;text-align:center;padding:14px 28px;border-radius:24px;
+  background:rgba(36,36,44,.92);border:1px solid rgba(255,220,130,.3);
+  color:#fff5d5;font-size:30px;font-weight:900;
+  box-shadow:0 0 18px rgba(255,190,58,.82), inset 0 0 14px rgba(255,255,255,.05);
+}
+.wrap{
+  position:absolute;top:132px;left:50%;transform:translateX(-50%);
+  display:flex;gap:26px;
+}
+.card{
+  width:255px;height:395px;border-radius:28px;position:relative;overflow:hidden;
+  border:1px solid rgba(255,255,255,.13);
+}
+.card::before{
+  content:"";position:absolute;left:0;right:0;top:0;height:6px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.95),transparent);
+}
+.card::after{
+  content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(circle at 24% 16%, rgba(255,255,255,.22), transparent 18%),
+    radial-gradient(circle at 50% 82%, rgba(255,175,51,.12), transparent 22%);
+  pointer-events:none;
+}
+.fb{
+  background:
+    radial-gradient(circle at 30% 18%, rgba(121,181,255,.18), transparent 18%),
+    linear-gradient(180deg,#1a4fd4 0%, #10317d 45%, #0b1737 100%);
+  box-shadow:0 0 20px rgba(69,135,255,.62), 0 0 40px rgba(69,135,255,.22), inset 0 0 18px rgba(255,255,255,.04);
+}
+.gs{
+  background:
+    radial-gradient(circle at 30% 18%, rgba(255,162,100,.18), transparent 18%),
+    linear-gradient(180deg,#ef4b2c 0%, #b62514 46%, #53120d 100%);
+  box-shadow:0 0 20px rgba(255,110,70,.62), 0 0 40px rgba(255,110,70,.22), inset 0 0 18px rgba(255,255,255,.04);
+}
+.bjk{
+  background:
+    radial-gradient(circle at 30% 18%, rgba(255,255,255,.12), transparent 18%),
+    linear-gradient(180deg,#4a4f58 0%, #23262b 46%, #111317 100%);
+  box-shadow:0 0 20px rgba(255,219,114,.38), 0 0 40px rgba(255,219,114,.15), inset 0 0 18px rgba(255,255,255,.04);
+}
+.ts{
+  background:
+    radial-gradient(circle at 30% 18%, rgba(255,165,208,.14), transparent 18%),
+    linear-gradient(180deg,#d04d84 0%, #a1325d 46%, #54182f 100%);
+  box-shadow:0 0 20px rgba(255,102,164,.44), 0 0 40px rgba(255,102,164,.18), inset 0 0 18px rgba(255,255,255,.04);
+}
+.logo{
+  position:absolute;top:22px;left:50%;transform:translateX(-50%);
+  width:102px;height:102px;object-fit:contain;
+  filter:drop-shadow(0 0 10px rgba(255,255,255,.25));
+}
+.team{
+  position:absolute;top:138px;left:0;right:0;text-align:center;
+  color:#fff5dc;font-size:28px;font-weight:900;
+}
+.score{
+  position:absolute;top:58%;left:50%;transform:translate(-50%,-50%);
+  font-size:118px;line-height:1;font-weight:900;color:#ffd54f;
+  text-shadow:0 0 10px rgba(255,214,84,1),0 0 24px rgba(255,179,0,.95),0 0 56px rgba(255,145,0,.7);
+}
+.label{
+  position:absolute;top:76%;left:50%;transform:translateX(-50%);
+  color:#fff2c8;font-size:20px;font-weight:900;letter-spacing:4px;
+}
+.winner{
+  position:absolute;left:50%;bottom:28px;transform:translateX(-50%);
+  min-width:560px;padding:12px 24px;text-align:center;
+  color:#ffd54f;font-size:58px;font-weight:900;opacity:0;
+  text-shadow:0 0 10px rgba(255,214,84,1),0 0 26px rgba(255,179,0,.9),0 0 60px rgba(255,145,0,.55);
+  transition:opacity .25s ease;
+}
+.winner.show{opacity:1}
+audio{display:none}
+</style>
+</head>
+<body>
+  <div class="timer" id="timer">10:00</div>
+
+  <div class="wrap">
+    <div class="card fb">
+      <img class="logo" id="logo-fb" src="logos/fb.png" alt="FB">
+      <div class="team">FB</div>
+      <div class="score" id="fb">0</div>
+      <div class="label">PUAN</div>
+    </div>
+    <div class="card gs">
+      <img class="logo" id="logo-gs" src="logos/gs.png" alt="GS">
+      <div class="team">GS</div>
+      <div class="score" id="gs">0</div>
+      <div class="label">PUAN</div>
+    </div>
+    <div class="card bjk">
+      <img class="logo" id="logo-bjk" src="logos/bjk.png" alt="BJK">
+      <div class="team">BJK</div>
+      <div class="score" id="bjk">0</div>
+      <div class="label">PUAN</div>
+    </div>
+    <div class="card ts">
+      <img class="logo" id="logo-ts" src="logos/ts.png" alt="TS">
+      <div class="team">TS</div>
+      <div class="score" id="ts">0</div>
+      <div class="label">PUAN</div>
+    </div>
+  </div>
+
+  <div class="winner" id="winner"></div>
+
+  <audio id="a-fb" src="audio/fb.mp3" preload="auto"></audio>
+  <audio id="a-gs" src="audio/gs.mp3" preload="auto"></audio>
+  <audio id="a-bjk" src="audio/bjk.mp3" preload="auto"></audio>
+  <audio id="a-ts" src="audio/ts.mp3" preload="auto"></audio>
+
 <script>
-setInterval(async ()=>{
- let d = await fetch('/api/state').then(r=>r.json());
- fb.innerText=d.scores.FB;
- gs.innerText=d.scores.GS;
- bjk.innerText=d.scores.BJK;
- ts.innerText=d.scores.TS;
-},1000);
+const API = window.location.origin;
+const audios = {
+  FB: document.getElementById('a-fb'),
+  GS: document.getElementById('a-gs'),
+  BJK: document.getElementById('a-bjk'),
+  TS: document.getElementById('a-ts')
+};
+let positions = { FB:0, GS:0, BJK:0, TS:0 };
+let currentLeader = '';
+let audioUnlocked = false;
+
+document.body.addEventListener('click', () => {
+  audioUnlocked = true;
+}, { once:true });
+
+function fmt(seconds){
+  const m = Math.floor(seconds / 60);
+  const s = seconds % 60;
+  return String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+}
+
+function syncLeaderAudio(leader){
+  if (!audioUnlocked) return;
+  if (!leader) {
+    Object.keys(audios).forEach(t => {
+      positions[t] = audios[t].currentTime || positions[t] || 0;
+      audios[t].pause();
+    });
+    currentLeader = '';
+    return;
+  }
+  if (currentLeader === leader && !audios[leader].paused) return;
+  Object.keys(audios).forEach(t => {
+    if (t !== leader) {
+      positions[t] = audios[t].currentTime || positions[t] || 0;
+      audios[t].pause();
+    }
+  });
+  const a = audios[leader];
+  try { a.currentTime = positions[leader] || 0; } catch(e) {}
+  a.loop = true;
+  a.play().catch(() => {});
+  currentLeader = leader;
+}
+
+Object.entries(audios).forEach(([team, audio]) => {
+  audio.addEventListener('timeupdate', () => {
+    positions[team] = audio.currentTime || 0;
+  });
+});
+
+async function loadState(){
+  try{
+    const res = await fetch(API + '/api/state');
+    const d = await res.json();
+
+    document.getElementById('timer').textContent = fmt(d.timeLeft || 0);
+    document.getElementById('fb').textContent = d.scores.FB || 0;
+    document.getElementById('gs').textContent = d.scores.GS || 0;
+    document.getElementById('bjk').textContent = d.scores.BJK || 0;
+    document.getElementById('ts').textContent = d.scores.TS || 0;
+
+    if (d.logos) {
+      if (d.logos.FB) document.getElementById('logo-fb').src = d.logos.FB;
+      if (d.logos.GS) document.getElementById('logo-gs').src = d.logos.GS;
+      if (d.logos.BJK) document.getElementById('logo-bjk').src = d.logos.BJK;
+      if (d.logos.TS) document.getElementById('logo-ts').src = d.logos.TS;
+    }
+
+    const winner = document.getElementById('winner');
+    if (d.showWinner && d.winner) {
+      winner.textContent = d.winner === 'BERABERE' ? 'BERABERE' : (d.winner + ' KAZANDI!');
+      winner.classList.add('show');
+    } else {
+      winner.classList.remove('show');
+      winner.textContent = '';
+    }
+
+    syncLeaderAudio(d.leader || '');
+  } catch(e) {}
+}
+setInterval(loadState, 700);
+loadState();
 </script>
 </body>
 </html>
