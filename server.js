@@ -226,15 +226,15 @@ app.post('/api/tiktok/connect', async (req, res) => {
   try {
     await disconnectTikTok();
     tiktokConnection = new WebcastPushConnection(username, { enableExtendedGiftInfo: true });
-    tiktokConnection.on('gift', (data) => {
-      const name = String(data.giftName || '').toLowerCase().trim();
-      const mapped = state.gifts[name];
-      if (mapped) {
-        const count = Number(data.repeatCount || 1);
-        state.scores[mapped] += count;
-        emitState();
-      }
-    });
+tiktokConnection.on('gift', (data) => {
+  const name = String(data.giftName || '').toLowerCase().trim();
+  const mapped = state.gifts[name];
+
+  if (mapped) {
+    state.scores[mapped] += 1;
+    emitState();
+  }
+});
     await tiktokConnection.connect();
     state.username = username;
     emitState();
