@@ -27,7 +27,17 @@
       <div class="winner-line"></div>
     </div>
   </main>
+body {
+  background: transparent;
+}
 
+.overlay-bg {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(0,0,0,0.4), rgba(0,0,0,0.9));
+  z-index: -1;
+}
   <audio id="audio-fb" preload="auto" src="/audio/fb.mp3"></audio>
   <audio id="audio-gs" preload="auto" src="/audio/gs.mp3"></audio>
   <audio id="audio-bjk" preload="auto" src="/audio/bjk.mp3"></audio>
