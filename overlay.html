@@ -1,33 +1,33 @@
-{
-  "username": "",
-  "timerDuration": 600,
-  "timeLeft": 600,
-  "timerRunning": false,
-  "roundEndedAt": null,
-  "showWinner": false,
-  "winner": "",
-  "scores": {
-    "FB": 0,
-    "GS": 0,
-    "BJK": 0,
-    "TS": 0
-  },
-  "logos": {
-    "FB": "",
-    "GS": "",
-    "BJK": "",
-    "TS": ""
-  },
-  "gifts": {
-    "rose": "FB",
-    "tiktok": "GS",
-    "gg": "BJK",
-    "ice cream cone": "TS",
-    "dondurma kulahi": "TS"
-  },
-  "audio": {
-    "enabled": true
-  },
-  "leader": "",
-  "giftFeed": []
-}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Overlay</title>
+<style>
+body {margin:0;background:transparent;font-family:Arial;overflow:hidden;}
+.timer {position:absolute;top:40px;left:50%;transform:translateX(-50%);background:#3b3b3b;padding:12px 30px;border-radius:20px;color:#fff;font-size:28px;box-shadow:0 0 20px rgba(255,200,0,0.8);}
+.container {position:absolute;top:140px;width:100%;display:flex;justify-content:center;gap:40px;}
+.card {width:200px;height:300px;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:white;box-shadow:0 0 30px rgba(0,0,0,0.6);}
+.fb { background:linear-gradient(#0b3c9d,#1e4fff); }
+.gs { background:linear-gradient(#8b0000,#ff3b3b); }
+.bjk { background:linear-gradient(#111,#444); }
+.ts { background:linear-gradient(#6b0f1a,#a83250); }
+.logo {width:70px;height:70px;object-fit:contain;margin-bottom:10px;}
+.team { font-size:20px; opacity:0.8; }
+.score {font-size:70px;font-weight:bold;color:#ffd700;text-shadow:0 0 25px #ffd700;}
+.text { font-size:14px; opacity:0.7; }
+</style>
+</head>
+<body>
+
+<div class="timer">10:00</div>
+
+<div class="container">
+<div class="card fb"><img src="images/fb.png" class="logo"><div class="team">FB</div><div class="score">0</div><div class="text">PUAN</div></div>
+<div class="card gs"><img src="images/gs.png" class="logo"><div class="team">GS</div><div class="score">0</div><div class="text">PUAN</div></div>
+<div class="card bjk"><img src="images/bjk.png" class="logo"><div class="team">BJK</div><div class="score">0</div><div class="text">PUAN</div></div>
+<div class="card ts"><img src="images/ts.png" class="logo"><div class="team">TS</div><div class="score">0</div><div class="text">PUAN</div></div>
+</div>
+
+</body>
+</html>
