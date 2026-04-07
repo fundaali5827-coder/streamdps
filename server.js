@@ -226,20 +226,23 @@ app.post('/api/tiktok/connect', async (req, res) => {
   try {
     await disconnectTikTok();
     tiktokConnection = new WebcastPushConnection(username, { enableExtendedGiftInfo: true });
-tiktokConnection.on('gift', (data) => {
-  const name = String(data.giftName || '').toLowerCase().trim();
-  const mapped = state.gifts[name];
 
-  if (!mapped) return;
+    tiktokConnection.on('gift', (data) => {
+      const name = String(data.giftName || '').toLowerCase().trim();
+      const mapped = state.gifts[name];
+      if (!mapped) return;
 
-  // SADECE STREAK BİTİNCE SAY
-  if (data.giftType === 1) {
-    if (!data.repeatEnd) return;
-  }
+      if (data.giftType === 1) {
+        if (!data.repeatEnd) return;
+        const count = Number(data.repeatCount || 1);
+        state.scores[mapped] += count;
+      } else {
+        state.scores[mapped] += 1;
+      }
 
-  state.scores[mapped] += 1;
-  emitState();
-});
+      emitState();
+    });
+
     await tiktokConnection.connect();
     state.username = username;
     emitState();
